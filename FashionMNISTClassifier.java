@@ -69,10 +69,7 @@ public class FashionMNISTClassifier extends JFrame {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            //more lables if my shit dont work
             labels.clear();
-            for (int i = 0; i < 1000; i++) {
-                labels.add("Class_" + i);
             }
         }
     } private void selectAndClassifyImage(ActionEvent e) {
