@@ -54,14 +54,16 @@
         <dependency>
             <groupId>org.datavec</groupId>
             <artifactId>datavec-data-image</artifactId>
-            <version>1.0.0-beta7</version> <!-- Ensure the version matches your other DL4J dependencies -->
+            <version>1.0.0-beta7</version> 
         </dependency>
 
 
     </dependencies>
 
     <repositories>
-        <!-- Only needed if using snapshot versions -->
+
+             <!-- ??? why is this here, delete soon -->
+             
         <repository>
             <id>sonatype-snapshots</id>
             <name>Sonatype OSS Snapshots</name>
