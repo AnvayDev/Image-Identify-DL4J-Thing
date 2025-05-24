@@ -54,27 +54,25 @@ public class FashionMNISTClassifier extends JFrame {
         } 
     private void initializeLabels() {
         labels = new ArrayList<>();
-      //fuck
-        String[] commonLabels = {
-                "idk i couldnt find a text file with the labels till now"
-        };try {
-            File labelFile = new File("C:\\Users\\super\\Downloads\\imagenet1000_clsidx_to_labels.txt");
-            if (labelFile.exists()) {
-                try (BufferedReader br = new BufferedReader(new FileReader(labelFile))) { String line;
-                    while ((line = br.readLine()) != null) {
-                        labels.add(line.trim());
-                    }
-                }
-            } else {
-                Collections.addAll(labels, commonLabels);
-                for (int i = labels.size(); i < 1000; i++) {
-                    labels.add("Class_" + i);
-                }
+        try (InputStream inputStream = getClass().getResourceAsStream("/imagenet1000_clsidx_to_labels.txt");
+             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+            if (inputStream == null) {
+                throw new Exception("Cannot find 'imagenet1000_clsidx_to_labels.txt' in classpath.");
+            }
+            String line;
+            while ((line = br.readLine()) != null) {
+                labels.add(line.trim());
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            labels.clear();
+            System.err.println("Could Not fidn the labels: " + e.getMessage());
+       
+            labels.clear(); 
+            String commonLabels = "IDK";
+            Collections.addAll(labels, commonLabels);
+            for (int i = labels.size(); i < 1000; i++) {
+                labels.add("Class_" + i);
             }
+            JOptionPane.showMessageDialog(this,"Using fallback labels!!!.", JOptionPane.WARNING_MESSAGE);
         }
     } private void selectAndClassifyImage(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();
