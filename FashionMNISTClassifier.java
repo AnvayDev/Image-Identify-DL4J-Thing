@@ -39,15 +39,19 @@ public class FashionMNISTClassifier extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
-
-    private void initializeModel() throws Exception {
-        File modelFile = new File("C:\\Users\\super\\Downloads\\KerasXception.zip");
-        if (modelFile.exists()) {
-            model = ModelSerializer.restoreComputationGraph(modelFile);
-        } else {
-            throw new Exception("put KerasXcepition in here.");
-        }
-    }
+  private void initializeModel() throws Exception {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Select Model File");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File modelFile = fileChooser.getSelectedFile();
+            if (modelFile.exists()) {
+                model = ModelSerializer.restoreComputationGraph(modelFile);
+            } else {
+             throw new Exception("Not a Model File: " + modelFile.getAbsolutePath());
+          }
+        } 
     private void initializeLabels() {
         labels = new ArrayList<>();
       //fuck
